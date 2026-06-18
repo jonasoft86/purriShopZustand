@@ -1,23 +1,22 @@
-//import { useCart } from "../../context/CardContext";
-import useGetProduct from "../../hooks/useGetProduct";
 import { motion } from 'framer-motion'
+import { TbArrowLeft, TbShoppingCart } from 'react-icons/tb'
+import { Link } from 'react-router-dom'
+import useGetProduct from "../../hooks/useGetProduct"
+import { useStore } from '../../store/store'
 import "./ProductDetail.css"
 
 const ProductDetail = () => {
-  const { product } = useGetProduct()
-  //const { addToCart , loading } = useCart();
-
-  const handleAdd = (product) =>{
-    
-  }
+  const { product, loading } = useGetProduct()
+  const addProduct = useStore((state) => state.addProduct)
 
   return (
     <motion.div 
       className='product-container'
-      initial={{ opacity:0 , y:100 }}
+      initial={{ opacity:0 , y:24 }}
       animate={{ opacity:1 , y:0 }}
-      transition={{ delay: 0.15, duration:2 }}
+      transition={{ duration:0.45 }}
     >
+      <Link to="/" className="detail-back"><TbArrowLeft /> Volver</Link>
       <div className='product-image'>
         {
           loading? (
@@ -51,11 +50,13 @@ const ProductDetail = () => {
               reviews
             </div>
             <div className="product-description">{product.description}</div>
-            <div className="product-price">${product.price}</div>
+            <div className="product-price">${product.price?.toFixed(2)}</div>
 
             <div className='product-buttons'>
-              <div className='product-btn' onClick={()=>handleAdd(product)}>Add to Cart</div>
-              <div className='product-btn buy-btn'>Buy Now</div>
+              <button className='product-btn' onClick={()=>addProduct(product)}>
+                <TbShoppingCart /> Añadir al carrito
+              </button>
+              <button className='product-btn buy-btn'>Comprar ahora</button>
             </div>
           </>
         }

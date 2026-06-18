@@ -1,4 +1,4 @@
-import { TbPlus } from 'react-icons/tb'
+import { TbHeart, TbShoppingCart } from 'react-icons/tb'
 import './ProductCart.css'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
@@ -9,14 +9,18 @@ const ProductCart = ({product}) => {
     const addProduct = useStore((state) => state.addProduct);
 
     return (
-        <motion.div 
+        <motion.article
             className='card-container'
-            initial={{ opacity:0 , y:100 }}
+            initial={{ opacity:0 , y:24 }}
             animate={{ opacity:1 , y:0 }}
-            transition={{ duration:2 }}
+            transition={{ duration:0.45 }}
         >
+            <span className="product-badge">{product.id % 2 === 0 ? 'Oferta' : 'Nuevo'}</span>
+            <button className="favorite-button" aria-label="Añadir a favoritos"><TbHeart /></button>
             <div className='card-image'>
-                <img src={product.image} alt="product image" />
+                <Link to={`/product/${product.id}`}>
+                    <img src={product.image} alt={product.title} />
+                </Link>
             </div>
             <div className='card-detail'>
                 <Link to={`/product/${product.id}`}>
@@ -24,13 +28,13 @@ const ProductCart = ({product}) => {
                     <div className='card-category'>{product.category}</div>
                 </Link>
                 <div className="card-flex">
-                    <div className="card-price">{product.price}</div>
-                    <div className="card-button" onClick={() => addProduct(product)}>
-                        <TbPlus />
-                    </div>
+                    <div className="card-price">${product.price.toFixed(2)}</div>
+                    <button className="card-button" onClick={() => addProduct(product)} aria-label={`Añadir ${product.title} al carrito`}>
+                        <TbShoppingCart />
+                    </button>
                 </div>
             </div>
-        </motion.div>
+        </motion.article>
     )
 }
 

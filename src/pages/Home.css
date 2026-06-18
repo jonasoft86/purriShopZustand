@@ -1,0 +1,91 @@
+.home-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 390px;
+  gap: 22px;
+  padding: 0 36px 36px;
+}
+
+.storefront {
+  min-width: 0;
+}
+
+.featured-products {
+  padding-top: 32px;
+}
+
+.cart-column {
+  min-width: 0;
+}
+
+.benefits {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 30px;
+  padding: 22px 26px;
+  border-radius: 20px;
+  background: linear-gradient(110deg, #f9fbff, #f1f6fd);
+}
+
+.benefits article {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.benefits article > span {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  color: var(--primary);
+  background: #e8f1ff;
+  border-radius: 50%;
+  font-size: 1.55rem;
+}
+
+.benefits div {
+  display: grid;
+  gap: 5px;
+}
+
+.benefits strong {
+  font-size: 0.88rem;
+}
+
+.benefits small {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+@media (max-width: 1180px) {
+  .home-layout {
+    grid-template-columns: minmax(0, 1fr) 340px;
+  }
+
+  .benefits {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 940px) {
+  .home-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .cart-column {
+    grid-row: 2;
+  }
+}
+
+@media (max-width: 760px) {
+  .home-layout {
+    padding: 0 14px 20px;
+  }
+
+  .benefits {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+}

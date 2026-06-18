@@ -10,10 +10,10 @@ type CartState = {
 
 type CartActions = {
 	addProduct: (product: Product) => void;
-	removeProduct: (productId: string) => void;
-	incQty: (productId: string) => void;
-	decQty: (productId: string) => void;
-	getProductById: (productId: string) => CartProduct | undefined;
+	removeProduct: (productId: Product['id']) => void;
+	incQty: (productId: Product['id']) => void;
+	decQty: (productId: Product['id']) => void;
+	getProductById: (productId: Product['id']) => CartProduct | undefined;
 	setTotal: (total: number) => void;
 	reset: () => void;
 };
@@ -60,14 +60,11 @@ export const createCartSlice: StateCreator<
 			const existingItemIndex = state.products.findIndex(
 				(item) => item.id === product.id
 			)
-		
-			const updateItems = [...state.products];
-		
-			if(existingItemIndex == -1){
+
+			if(existingItemIndex === -1){
 				state.products.push({ ...product, qty: 1 });
 			}else{
-		
-				updateItems[existingItemIndex].qty +=1;
+				state.products[existingItemIndex].qty += 1;
 			}
 		}),
 	removeProduct: (productId) =>

@@ -1,32 +1,27 @@
-import { useState , useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
+import { Product } from '../types/product';
+import { featuredProducts } from '../data/products';
 
 const useGetProduct = () => {
 
-    const [product, setProduct] = useState([])
-    const [loading, setLoading] = useState(false)
+    const [product, setProduct] = useState<Partial<Product>>({})
+    const [loading, setLoading] = useState(true)
 
     const { id } = useParams()
 
     useEffect(()=>{
-        getProduct(id)
-    }, [])
+      const getProduct = async() => {
+        const foundProduct = featuredProducts.find(
+          (item) => String(item.id) === id
+        )
 
-    const getProduct = async(id:any) => {
-        try {
-            setLoading(true)
-            const res = await fetch(`https://fakestoreapi.com/products/${id}`);
-        
-            
-            if(res.ok){
-                const data = await res.json()
-                setProduct(data)
-                setLoading(false)
-            }
-        } catch (error) {
-            console.error(error)
-        }
-    };
+        setProduct(foundProduct ?? {})
+        setLoading(false)
+      };
+
+      getProduct()
+    }, [id])
 
     return { product, loading}
 };

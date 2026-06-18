@@ -1,49 +1,40 @@
-import React from 'react'
 import "./CartContainer.css"
 import Item from './Item'
 import Summary from './Summary'
 import { useStore } from '../../store/store';
+import { TbShoppingBag } from "react-icons/tb";
 
-const CartContainer = () => {
+const CartContainer = ({ compact = false }) => {
   const { products, removeProduct , incQty, decQty} = useStore();
-
-  const handleRemove = (productId) =>{
-    removeProduct(productId)
-  }
-
-  const handleAdd = (product) =>{
-    console.log(product)
-    //incQty(product)
-  }
-
-  const handleRemoveQuantity = (productId) =>{
-    //decQty(productId)
-  }
+  const totalItems = products.reduce((total, product) => total + product.qty, 0)
 
   return (
-    <div className='cart-wrapper'>
-      <h2 className='section-title'>Shopping Cart</h2>
+    <div className={`cart-wrapper ${compact ? 'cart-wrapper--compact' : ''}`}>
+      <div className="cart-header">
+        <h2>Tu carrito ({totalItems})</h2>
+      </div>
       <div className='cart-container'>
         {
-          products && products.length>0 ? 
-          <>
+          products.length > 0 ?
             <div className='cart-items'>
               { products.map((item)=> (
                   <Item 
                     key={item.id} 
                     item={item} 
-                    handleRemove={handleRemove} 
-                    handleAdd={handleAdd} 
-                    handleRemoveQuantity={handleRemoveQuantity}
+                    handleRemove={removeProduct}
+                    handleAdd={incQty}
+                    handleRemoveQuantity={decQty}
                   />
               ))}
             </div>
-          </>:
+          :
           <div className='no-item'>
-            <p>No items in the cart</p>
+            <span><TbShoppingBag /></span>
+            <h3>Tu carrito está vacío</h3>
+            <p>Añade productos para verlos aquí.</p>
           </div>
         }
-          <Summary cartItems={products} />
+        <Summary cartItems={products} />
       </div>
     </div>
   )

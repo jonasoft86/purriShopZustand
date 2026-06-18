@@ -1,45 +1,21 @@
-import { createContext, useContext, useEffect, useState } from "react"
+import { createContext, useContext } from "react"
 import { useParams } from "react-router-dom"
+import { featuredProducts } from "../data/products"
 
 const ProductContext = createContext();
 
 export const ProductProvider = ({children}) => {
-  const [products, setProducts] = useState([])
-  const [loading, setLoading] = useState(false)
-
   const {category} = useParams();
-
-  const getProducts = async(category) => {
-    try {
-      setLoading(true)
-      let url = 'https://fakestoreapi.com/products';
-
-      if(category){
-        url += `/category/${category}/?limit=4`;
-      }else{
-        url += `?limit=4`;
-      }
-
-      const res = await fetch(url)
-      if(res.ok){
-        const data = await res.json()
-        setProducts(data)
-        setLoading(false)
-      }
-
-    } catch (error) {
-      console.error(error)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  useEffect(()=>{
-    getProducts(category)
-  }, [category])
+  const normalizedCategory = category?.toLowerCase();
+  const filteredProducts = normalizedCategory
+    ? featuredProducts.filter((product) =>
+        product.category?.toLowerCase().includes(normalizedCategory)
+      )
+    : featuredProducts;
+  const products = filteredProducts.length ? filteredProducts : featuredProducts;
 
   return (
-    <ProductContext.Provider value={{ products, loading}}>{children}</ProductContext.Provider>
+    <ProductContext.Provider value={{ products, loading: false }}>{children}</ProductContext.Provider>
   )
 }
 

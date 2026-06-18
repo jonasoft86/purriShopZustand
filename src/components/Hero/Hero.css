@@ -1,0 +1,193 @@
+.hero {
+  position: relative;
+  min-height: 365px;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  overflow: hidden;
+  border-radius: 22px;
+  background:
+    linear-gradient(105deg, rgba(245, 249, 255, 0.98), rgba(220, 234, 255, 0.88)),
+    #eaf2ff;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 2;
+  align-self: center;
+  padding: 50px 0 50px 44px;
+}
+
+.eyebrow {
+  display: block;
+  margin-bottom: 16px;
+  color: var(--primary);
+  font-size: 0.86rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  max-width: 540px;
+  margin-bottom: 16px;
+  color: #111827;
+  font-size: clamp(2.25rem, 4vw, 3.55rem);
+  line-height: 1.03;
+  letter-spacing: -0.055em;
+}
+
+.hero h1 svg {
+  display: inline;
+  color: var(--primary);
+  font-size: 0.78em;
+  transform: translateY(6px);
+}
+
+.hero p {
+  max-width: 530px;
+  color: #344054;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.primary-button {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+  padding: 15px 22px;
+  color: white;
+  background: linear-gradient(135deg, var(--primary), #0754d1);
+  border-radius: 12px;
+  font-weight: 700;
+  box-shadow: 0 12px 24px rgba(7, 91, 232, 0.22);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.primary-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 28px rgba(7, 91, 232, 0.28);
+}
+
+.hero-art {
+  position: relative;
+  min-height: 360px;
+}
+
+.decor-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.32);
+}
+
+.circle-one {
+  width: 260px;
+  height: 260px;
+  top: -90px;
+  left: -70px;
+}
+
+.circle-two {
+  width: 180px;
+  height: 180px;
+  right: -52px;
+  bottom: -36px;
+}
+
+.dot-grid {
+  position: absolute;
+  bottom: 64px;
+  left: 30px;
+  display: grid;
+  grid-template-columns: repeat(4, 7px);
+  gap: 12px;
+}
+
+.dot-grid i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #b8d3ff;
+}
+
+.cart-illustration {
+  position: absolute;
+  right: 9%;
+  bottom: 28px;
+  width: 350px;
+  height: 280px;
+  filter: drop-shadow(0 22px 18px rgba(31, 79, 154, 0.18));
+}
+
+.hero-cart-icon {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 310px;
+  height: 245px;
+  color: #3469b5;
+  stroke-width: 1.1;
+}
+
+.hero-bag {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.hero-bag svg {
+  width: 55%;
+  height: 55%;
+}
+
+.bag-one {
+  top: 40px;
+  left: 98px;
+  width: 100px;
+  height: 126px;
+  background: linear-gradient(145deg, #4284ed, #0754c7);
+}
+
+.bag-two {
+  top: 88px;
+  left: 43px;
+  width: 70px;
+  height: 86px;
+  background: linear-gradient(145deg, #40b89a, #087d70);
+}
+
+@media (max-width: 1120px) {
+  .cart-illustration {
+    right: -20px;
+    transform: scale(0.88);
+  }
+}
+
+@media (max-width: 760px) {
+  .hero {
+    min-height: 540px;
+    grid-template-columns: 1fr;
+  }
+
+  .hero-copy {
+    padding: 34px 26px 0;
+  }
+
+  .hero-art {
+    min-height: 230px;
+  }
+
+  .cart-illustration {
+    right: 50%;
+    bottom: -25px;
+    transform: translateX(50%) scale(0.7);
+  }
+
+  .dot-grid {
+    bottom: 32px;
+    left: 26px;
+  }
+}
